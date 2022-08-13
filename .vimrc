@@ -1,45 +1,40 @@
 set nocompatible              " be iMproved, required
-filetype off		      " required
-syntax on		      " turn on syntax color
 
-" set the runtime path to include Vundle and initialize
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
-
-" let Vundle manage Vundle, required
-Plugin 'VundleVim/Vundle.vim'
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+call plug#begin("~/.vim/plugged")
 
 " The following are examples of different formats supported.
 " Keep Plugin commands between vundle#begin/end.
 " plugin on GitHub repo
-Plugin 'tpope/vim-fugitive'
-Plugin 'ctrlpvim/ctrlp.vim'
+Plug 'tpope/vim-fugitive'
+Plug 'ctrlpvim/ctrlp.vim'
 let g:ctrlp_custom_ignore = 'node_modules\|DS_Store\|git'
 
-Plugin 'preservim/nerdtree'
-Plugin 'tpope/vim-liquid'
-Plugin 'tpope/vim-surround'
-Plugin 'tpope/vim-repeat'
-Plugin 'preservim/nerdcommenter'
-Plugin 'christoomey/vim-tmux-navigator'
-Plugin 'mileszs/ack.vim'
+Plug 'preservim/nerdtree'
+nnoremap <C-n> :NERDTreeToggle<CR>
+Plug 'tpope/vim-liquid'
+Plug 'tpope/vim-surround'
+Plug 'tpope/vim-repeat'
+Plug 'preservim/nerdcommenter'
+Plug 'christoomey/vim-tmux-navigator'
+Plug 'mileszs/ack.vim'
 cnoreabbrev Ack Ack!
 nnoremap <Leader>a :Ack!<Space>"\b<C-R><C-W>\b"<CR>:cw<CR>
 
-Plugin 'airblade/vim-rooter'
+Plug 'airblade/vim-rooter'
 " plugin from http://vim-scripts.org/vim/scripts.html
 " Plugin 'L9'
 " Git plugin not hosted on GitHub
 
 " The sparkup vim script is in a subdirectory of this repo called vim.
 " Pass the path to set the runtimepath properly.
-Plugin 'rstacruz/sparkup', {'rtp': 'vim/'}
+Plug 'rstacruz/sparkup', {'rtp': 'vim/'}
 " Install L9 and avoid a Naming conflict if you've already installed a
 " different version somewhere else.
 " Plugin 'ascenator/L9', {'name': 'newL9'}
 
 ""
-Plugin 'scrooloose/syntastic'
+Plug 'scrooloose/syntastic'
 set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*
@@ -49,25 +44,27 @@ let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 0
 let g:syntastic_check_on_wq = 0
 
-Plugin 'prettier/vim-prettier'
+Plug 'prettier/vim-prettier'
 
 "" vim markdown
-Plugin 'godlygeek/tabular'
-Plugin 'plasticboy/vim-markdown'
+Plug 'godlygeek/tabular'
+Plug 'plasticboy/vim-markdown'
 
 "" frontend
-Plugin 'pangloss/vim-javascript'
-Plugin 'leafgarland/typescript-vim'
+Plug 'pangloss/vim-javascript'
+Plug 'leafgarland/typescript-vim'
 let g:typescript_indent_disable = 1
 
-"" editorconfig
-Plugin 'editorconfig/editorconfig-vim'
+Plug 'editorconfig/editorconfig-vim'
 
-"" Julia
-Plugin 'JuliaEditorSupport/julia-vim'
+Plug 'dracula/vim', {'as': 'dracula'}
 
-call vundle#end()            " required
-filetype plugin indent on    " required
+Plug 'neoclide/coc.nvim', { 'branch': 'release' }
+call plug#end()            " required
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+" color scheme
+colorscheme dracula
 
 " splits settings
 nnoremap <C-J> <C-W><C-J>
@@ -100,3 +97,9 @@ if executable('rg')
 elseif executable('ag')
     let g:ackprg = 'ag --vimgrep'
 endif
+
+" GoTo code navigation.
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
